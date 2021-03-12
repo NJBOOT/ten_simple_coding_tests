@@ -178,7 +178,8 @@ def solution(sentence1, sentence2):
 
     return set1^set2, set1&set2
 
-assert solution(sentence1, sentence2) == ({'We', 'to', 'heavy', 'The', 'storm', 'meet', 'hit', 'pleased', 'are', 'by', 'a', 'in', 'was', 'you', 'our'}, {'really', 'city'})
+assert solution(sentence1, sentence2) == ({'We', 'to', 'heavy', 'The', 'storm', 'meet', 'hit', \
+    'pleased', 'are', 'by', 'a', 'in', 'was', 'you', 'our'}, {'really', 'city'})
 ```
 
 ## 10. Prime Numbers Array
