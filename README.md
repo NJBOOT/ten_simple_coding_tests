@@ -12,16 +12,25 @@ Note: The integer could be either positive or negative.
 * `-231` => `-132`
 * `345` => `543`
 
+
+<details>
+	<summary>Solution</summary>
+
 ```python
 def solution(n):
     return f'-{str(n)[1:][::-1]}' if n<0 else str(n)[::-1]
 ```
+
+</details>
 
 ## 2. Average Words Length
 
 For a given sentence, return the average word length.
 
 Note: Remember to remove punctuation first.
+
+<details>
+	<summary>Solution</summary>
 
 ```python
 sentence1 = "Hi all, my name is Tom...I am originally from Australia."
@@ -43,10 +52,15 @@ def solution(sentence):
     return round(avg(map(len, re.findall(r'\w+', sentence))), 2)
 ```
 
+</details>
+
 ## 3. Add Strings
 Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
 
 You must **not** use any built-in BigInteger library or convert the inputs to integer directly.
+
+<details>
+	<summary>Solution</summary>
 
 ```python
 from functools import reduce  # only needed for python 3
@@ -58,12 +72,17 @@ def solution(num1, num2):
     return n1+n2
 ```
 
+</details>
+
 ## 4. First Unique Character
 Given a string, find the first non-repeating character in it and return its index.
 
 If it doesn't exist, return -1.
 
 *`Note: all the input strings are already lowercase.`*
+
+<details>
+	<summary>Solution</summary>
 
 ```python
 def solution(s):
@@ -80,11 +99,16 @@ def solution(s):
         return -1
 ```
 
+</details>
+
 ## 5. Valid Palindrome
 
 Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
 
 The string will only contain lowercase characters a-z.
+
+<details>
+	<summary>Solution</summary>
 
 ```python
 def solution(s):
@@ -97,9 +121,14 @@ def solution(s):
     return False
 ```
 
+</details>
+
 ## 6. Monotonic Array
 
 Given an array of integers, determine whether the array is monotonic or not.
+
+<details>
+	<summary>Solution</summary>
 
 ```python
 A = [6,5,4,4]
@@ -115,9 +144,14 @@ assert not solution(B)
 assert solution(C)
 ```
 
+</details>
+
 ## 7. Move Zeroes
 
 Given an array nums, write a function to move all zeroes to the end of it while maintaining the relative order of the non-zero elements.
+
+<details>
+	<summary>Solution</summary>
 
 ```python
 array1 = [0,1,0,3,12]
@@ -147,8 +181,14 @@ assert solution(array1) == [1, 3, 12, 0, 0]
 assert solution(array2) == [1, 7, 8, 10, 12, 4, 0, 0, 0, 0]
 ```
 
+</details>
+
 ## 8 Fill The Blanks
+
 Given an array containing `None` values fill in the `None` values with most recent `non-None` value in the array
+
+<details>
+	<summary>Solution</summary>
 
 ```python
 array1 = [1, None, 2, 3, None, None, 5, None]
@@ -163,7 +203,10 @@ def solution(arr):
 assert solution(array1) == [1, 1, 2, 3, 3, 3, 5, 5]
 ```
 
-### 8.1 Another approach
+</details>
+
+<details>
+	<summary>Another solution</summary>
 
 ```python
 
@@ -179,10 +222,14 @@ def solution(a):
 
 Basically I am creating a matrix and rotating it with `zip`. Then for each column (that now is a row), taking the first not `None` element.
 
+</details>
+
 ## 9. Matched & Mismatched Words
 
 Given two sentences, return an array that has the words that appear in one sentence and not the other and an array with the words in common.
 
+<details>
+	<summary>Solution</summary>
 
 ```python
 sentence1 = 'We are really pleased to meet you in our city'
@@ -198,6 +245,8 @@ assert solution(sentence1, sentence2) == ({'We', 'to', 'heavy', 'The', 'storm', 
     'pleased', 'are', 'by', 'a', 'in', 'was', 'you', 'our'}, {'really', 'city'})
 ```
 
+</details>
+
 ## 10. Prime Numbers Array
 
 Given `k` numbers which are less than `n`, return the set of prime number among them
@@ -205,6 +254,9 @@ Given `k` numbers which are less than `n`, return the set of prime number among 
 Note: The task is to write a program to print all Prime numbers in an Interval.
 
 Definition: A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+
+<details>
+	<summary>Solution</summary>
 
 ```python
 def solution(n):
@@ -220,5 +272,4 @@ def solution(n):
 assert solution(35) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 ```
 
-
-
+</details>
