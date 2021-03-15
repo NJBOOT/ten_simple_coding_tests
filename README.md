@@ -147,7 +147,7 @@ assert solution(array1) == [1, 3, 12, 0, 0]
 assert solution(array2) == [1, 7, 8, 10, 12, 4, 0, 0, 0, 0]
 ```
 
-## 8. Fill The Blanks
+## 8 Fill The Blanks
 Given an array containing `None` values fill in the `None` values with most recent `non-None` value in the array
 
 ```python
@@ -162,6 +162,22 @@ def solution(arr):
 
 assert solution(array1) == [1, 1, 2, 3, 3, 3, 5, 5]
 ```
+
+### 8.1 Another approach
+
+```python
+
+def first_true(iter):
+	for x in iter:
+		if x is not None:
+			return x
+	raise ValueError("All the values are None")
+
+def solution(a):
+	return [first_true(x) for x in zip(*(([None] * i + a[:len(a)-i]) for i in range(len(a))))]
+```
+
+Basically I am creating a matrix and rotating it with `zip`. Then for each column (that now is a row), taking the first not `None` element.
 
 ## 9. Matched & Mismatched Words
 
