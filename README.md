@@ -248,7 +248,7 @@ Basically I am creating a matrix and rotating it with `zip`. Then for each colum
 
 The first solution is the more readable and the fastest one.
 
-```
+```python
 >>> timeit.timeit('solution([1, None, 2, 3, None, None, 5, None])', '''
 def solution(arr):
     ret = []
