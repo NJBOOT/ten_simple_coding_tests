@@ -29,8 +29,6 @@ For a given sentence, return the average word length.
 
 Note: Remember to remove punctuation first.
 
-<details>
-	<summary>Solution</summary>
 
 ```python
 sentence1 = "Hi all, my name is Tom...I am originally from Australia."
@@ -38,7 +36,12 @@ sentence2 = "I need to work very hard to learn more about algorithms in Python!"
 
 assert solution(sentence1)==3.82
 assert solution(sentence2)==4.08
+```
 
+<details>
+	<summary>Solution</summary>
+
+```python
 import re
 def solution(sentence):
     def avg(iterable):
@@ -127,21 +130,24 @@ def solution(s):
 
 Given an array of integers, determine whether the array is monotonic or not.
 
-<details>
-	<summary>Solution</summary>
-
 ```python
 A = [6,5,4,4]
 B = [1,1,1,3,3,4,3,2,4,2]
 C = [1,1,2,3,7]
 
+assert solution(A)
+assert not solution(B)
+assert solution(C)
+```
+
+<details>
+	<summary>Solution</summary>
+
+```python
 def solution(nums):
     return all(a>=b for a, b in zip(nums, nums[1:])) or \
            all(a<=b for a, b in zip(nums, nums[1:]))
 
-assert solution(A)
-assert not solution(B)
-assert solution(C)
 ```
 
 </details>
@@ -150,20 +156,25 @@ assert solution(C)
 
 Given an array nums, write a function to move all zeroes to the end of it while maintaining the relative order of the non-zero elements.
 
-<details>
-	<summary>Solution</summary>
-
 ```python
 array1 = [0,1,0,3,12]
 array2 = [1,7,0,0,8,0,10,12,0,4]
 
+assert solution(array1) == [1, 3, 12, 0, 0]
+assert solution(array2) == [1, 7, 8, 10, 12, 4, 0, 0, 0, 0]
+```
+
+<details>
+	<summary>Solution</summary>
+
+```python
 def solution(nums):  # NOT changing the input
     ret = [x for x in nums if x!=0]
     return ret + [0] * (len(nums)-len(ret))
 
 
 from collections import deque
-def solution(nums):  # changing the input
+def solution_2(nums):  # changing the input (inplace)
     zeros = deque()
     for i in range(len(nums)):
         x = nums[i]
@@ -175,10 +186,6 @@ def solution(nums):  # changing the input
             nums[i] = 0
             zeros.append(i)
     return nums
-
-
-assert solution(array1) == [1, 3, 12, 0, 0]
-assert solution(array2) == [1, 7, 8, 10, 12, 4, 0, 0, 0, 0]
 ```
 
 </details>
@@ -187,12 +194,17 @@ assert solution(array2) == [1, 7, 8, 10, 12, 4, 0, 0, 0, 0]
 
 Given an array containing `None` values fill in the `None` values with most recent `non-None` value in the array
 
-<details>
-	<summary>Solution</summary>
-
 ```python
 array1 = [1, None, 2, 3, None, None, 5, None]
 
+assert solution(array1) == [1, 1, 2, 3, 3, 3, 5, 5]
+```
+
+<details>
+	<summary>Solution</summary>
+
+
+```python
 def solution(arr):
     ret = []
     for x in arr:
@@ -200,7 +212,6 @@ def solution(arr):
         ret.append(valid)
     return ret
 
-assert solution(array1) == [1, 1, 2, 3, 3, 3, 5, 5]
 ```
 
 </details>
@@ -228,23 +239,24 @@ Basically I am creating a matrix and rotating it with `zip`. Then for each colum
 
 Given two sentences, return an array that has the words that appear in one sentence and not the other and an array with the words in common.
 
-<details>
-	<summary>Solution</summary>
-
 ```python
 sentence1 = 'We are really pleased to meet you in our city'
 sentence2 = 'The city was hit by a really heavy storm'
-
-def solution(sentence1, sentence2):
-    set1 = set(sentence1.split())
-    set2 = set(sentence2.split())
-
-    return set1^set2, set1&set2
 
 assert solution(sentence1, sentence2) == ({'We', 'to', 'heavy', 'The', 'storm', 'meet', 'hit', \
     'pleased', 'are', 'by', 'a', 'in', 'was', 'you', 'our'}, {'really', 'city'})
 ```
 
+<details>
+	<summary>Solution</summary>
+
+```python
+def solution(sentence1, sentence2):
+    set1 = set(sentence1.split())
+    set2 = set(sentence2.split())
+
+    return set1^set2, set1&set2
+```
 </details>
 
 ## 10. Prime Numbers Array
@@ -254,6 +266,10 @@ Given `k` numbers which are less than `n`, return the set of prime number among 
 Note: The task is to write a program to print all Prime numbers in an Interval.
 
 Definition: A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+
+```python
+assert solution(35) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+```
 
 <details>
 	<summary>Solution</summary>
@@ -268,8 +284,6 @@ def solution(n):
         else:
             primes.append(num)
     return primes
-
-assert solution(35) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 ```
 
 </details>
