@@ -244,6 +244,42 @@ def solution(a):
 
 Basically I am creating a matrix and rotating it with `zip`. Then for each column (that now is a row), taking the first not `None` element.
 
+### Performances
+
+The first solution is the more readable and the fastest one.
+
+```
+>>> timeit.timeit('solution([1, None, 2, 3, None, None, 5, None])', '''
+def solution(arr):
+    ret = []
+    for x in arr:
+        valid = valid if x is None else x
+        ret.append(valid)
+    return ret
+''')
+0.6686493580054957
+>>> timeit.timeit('solution([1, None, 2, 3, None, None, 5, None])', '''
+def first_true(iter):
+	for x in iter:
+		if x is not None:
+			return x
+	raise ValueError("All the values are None")
+
+def solution(a):
+	return [first_true(x) for x in zip(*(([None] * i + a[:len(a)-i]) for i in range(len(a))))]
+''')
+4.560916772999917
+
+>>> timeit.timeit('solution([1, None, 2, 3, None, None, 5, None])', '''
+def solution(a):
+    return [
+        next(y for y in x if y is not None)
+        for x in zip(*(([None] * i + a[:len(a)-i]) for i in range(len(a))))
+	]	
+''')
+5.971725533992867
+```
+
 </details>
 
 ## 9. Matched & Mismatched Words
