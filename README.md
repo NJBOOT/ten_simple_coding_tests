@@ -231,6 +231,17 @@ def solution(a):
 	return [first_true(x) for x in zip(*(([None] * i + a[:len(a)-i]) for i in range(len(a))))]
 ```
 
+That can become even more obscure
+
+```python
+def solution(a):
+    return [
+        next(y for y in x if y is not None)
+        for x in zip(*(([None] * i + a[:len(a)-i]) for i in range(len(a))))
+	]
+
+```
+
 Basically I am creating a matrix and rotating it with `zip`. Then for each column (that now is a row), taking the first not `None` element.
 
 </details>
