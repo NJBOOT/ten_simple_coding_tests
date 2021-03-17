@@ -51,6 +51,25 @@ const avgWordLength = sentence => {
 //   return +(arr.char / arr.length).toFixed(2);
 // };
 
+// Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
+// You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+methodlessSum = (num1, num2) => {
+  const sumHelper = n => {
+    let numArr = n.split("");
+    let decimalPlace = 1;
+    let newArr = [];
+    for (let i = numArr.length - 1; i >= 0; i--) {
+      newArr.push(numArr[i] * decimalPlace);
+      decimalPlace *= 10;
+    }
+    return newArr;
+  };
+
+  let wholeArr = [...sumHelper(num1), ...sumHelper(num2)];
+  return wholeArr.reduce((sum, el) => (sum += el), 0);
+};
+
 // First unique character
 // Given a string, find the first non-repeating character in it and return its index.
 // If it doesn't exist, return -1.
