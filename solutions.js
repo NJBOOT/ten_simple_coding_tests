@@ -92,6 +92,7 @@ const unique = str => {
 // Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
 // The string will only contain lowercase characters a-z.
 
+// INCORRECT/INCOMPLETE. ATTEMPT ONE
 const palindrome = s => {
   // If normal palindrome, return true
   let rev = s.split("").reduce((rev, char) => char + rev, "");
@@ -117,4 +118,72 @@ const palindrome = s => {
   }
   // if reverse string equals string, then it's a palindrome
   return rev === s;
+};
+
+// THIS SOLUTION WORKS BUT TIMES OUT ON LEETCODE
+
+const validPalindrome = s => {
+  // palindrom check helper function. Returns boolean
+  //   const isValid = s => s.split("").reduce((rev, char) => char + rev, "") === s;
+
+  const isValid = s => {
+    for (let i = 0; i < s.length / 2; i++) {
+      if (s[i] !== s[s.length - 1 - i]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  // If normal palindrome, return true
+  if (isValid(s)) {
+    return true;
+  }
+
+  //If not, continue. We will then loop through the string, remove one character at a time, and check if that substring is valid
+  for (let i = 0; i < s.length; i++) {
+    //remove letter at current index
+    let temp = s.substring(0, i) + s.substring(i + 1, s.length);
+    //test the "temp" string to see if it's a palindrome
+    if (isValid(temp)) {
+      //if you found a valid palindrome, return true
+      return true;
+    }
+  }
+  //  return false otherwise
+  return false;
+};
+
+// CORRECT SOLUTION
+
+const palindrome = s => {
+  // palindrom check helper function. Returns boolean
+  //   const isValid = s => s.split("").reduce((rev, char) => char + rev, "") === s;
+
+  const isValid = s => {
+    for (let i = 0; i < s.length / 2; i++) {
+      if (s[i] !== s[s.length - 1 - i]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  // If normal palindrome, return true
+  if (isValid(s)) {
+    return true;
+  }
+  let left = 0;
+  let right = s.length - 1;
+
+  while (left < right) {
+    if (s[left] !== s[right]) {
+      return (
+        isValid(s.slice(left, right)) || isValid(s.slice(left + 1, right + 1))
+      );
+    }
+    left++;
+    right--;
+  }
+  return false;
 };
