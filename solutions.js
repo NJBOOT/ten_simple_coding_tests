@@ -87,3 +87,34 @@ const unique = str => {
   }
   return -1;
 };
+
+// Valid Palindrome
+// Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
+// The string will only contain lowercase characters a-z.
+
+const palindrome = s => {
+  // If normal palindrome, return true
+  let rev = s.split("").reduce((rev, char) => char + rev, "");
+  if (rev === s) {
+    return true;
+  }
+  //counter flag for deletes
+  let delCount = 0;
+  for (let i = 0; i < s.length; i++) {
+    // find letter in string where mirrored index doesn't match && limit to one delete
+    if (s[s.length - 1 - i] !== s[i] && delCount < 1) {
+      // remove offending letter from both original string and reverse, increment delete
+      // edge case
+      if (i === 0) {
+        s = s.slice(1);
+        rev = rev.slice(0, rev.length - 1);
+      } else {
+        s = s.slice(0, s.length - 1 - i) + s.slice(s.length - 1 - i + 1);
+        rev = rev.slice(0, i) + rev.slice(i + 1);
+      }
+      delCount++;
+    }
+  }
+  // if reverse string equals string, then it's a palindrome
+  return rev === s;
+};
