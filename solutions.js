@@ -187,3 +187,68 @@ const palindrome = s => {
   }
   return false;
 };
+
+// 6 - Given an array of integers, determine whether the array is monotonic or not.
+
+const isMonotonic = arr => {
+  let ascending = true;
+  let descending = true;
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i - 1] > arr[i]) {
+      ascending = false;
+    } else if (arr[i - 1] < arr[i]) {
+      descending = false;
+    }
+  }
+  return ascending || descending;
+};
+
+// 7 - Move Zeroes
+// Given an array nums, write a function to move all zeroes to the end of it while maintaining the relative order of the non-zero elements.
+
+// Using splice to remove zeroes, traversing array backwards, then pushing zeroes on at the end.
+const moveZeroes = arr => {
+  let count = 0;
+  for (let i = arr.length - 1; i >= 0; i--) {
+    if (arr[i] === 0) {
+      arr.splice(i, 1);
+      count++;
+    }
+  }
+  for (let i = 0; i < count; i++) {
+    arr.push(0);
+  }
+  return arr;
+};
+
+// Swapping elements way
+const moveZeroes = arr => {
+  // idx to move non-zero element to
+  let index = 0;
+  for (let i = 0; i < arr.length; i++) {
+    // if element ISN'T ZERO
+    if (arr[i] !== 0) {
+      //swap element to beginning of arr
+      let temp = arr[i];
+      arr[i] = arr[index];
+      arr[index] = temp;
+      // increment "swap" index by one for next swap
+      index++;
+    }
+  }
+  return arr;
+};
+
+// 8 Fill The Blanks
+// Given an array containing None values fill in the None values with most recent non-None value in the array
+// array1 = [1, None, 2, 3, None, None, 5, None]
+// assert solution(array1) == [1, 1, 2, 3, 3, 3, 5, 5]
+
+const fillBlanks = arr => {
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] === "None") {
+      arr[i] = arr[i - 1];
+    }
+  }
+  return arr;
+};
