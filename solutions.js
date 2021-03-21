@@ -252,3 +252,32 @@ const fillBlanks = arr => {
   }
   return arr;
 };
+
+// 9. Matched & Mismatched Words
+// Given two sentences, return an array that has the words that appear in one sentence and not the other
+// and an array with the words in common.
+
+const matchedWords = (one, two) => {
+  //   combine words into one big sentence and split sentence into an array of words
+  const combined = `${one} ${two}`.toLowerCase().split(" ");
+
+  //  create a hash map of the words (each word and corresponding count)
+  let map = {};
+  for (let word of combined) {
+    map[word] = map[word] + 1 || 1;
+  }
+  // return object
+  let res = {
+    unique: [],
+    duplicate: [],
+  };
+  // if word appears > 1, push into duplicate array. Else, push into unique array
+  for (let word in map) {
+    if (map[word] === 1) {
+      res.unique.push(word);
+    } else {
+      res.duplicate.push(word);
+    }
+  }
+  return res;
+};
