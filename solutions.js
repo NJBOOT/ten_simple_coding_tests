@@ -257,6 +257,7 @@ const fillBlanks = arr => {
 // Given two sentences, return an array that has the words that appear in one sentence and not the other
 // and an array with the words in common.
 
+// THIS DOESN'T WORK I REALIZED. IF SAME WORD APPEARS TWICE IN ONE SENTENCE, STILL APPEARS IN DUPLICATES ARRAY.
 const matchedWords = (one, two) => {
   //   combine words into one big sentence and split sentence into an array of words
   const combined = `${one} ${two}`.toLowerCase().split(" ");
@@ -280,4 +281,57 @@ const matchedWords = (one, two) => {
     }
   }
   return res;
+};
+
+const matchedWords = (one, two) => {
+  // strip duplicates from EACH sentence before combining
+  const stripDuplicates = sentence => {
+    let arr = sentence.toLowerCase().split(" ");
+    return [...new Set(arr)];
+  };
+
+  //combine words into one big sentence and split sentence into an array of words
+  const combined = [...stripDuplicates(one), ...stripDuplicates(two)];
+  console.log(combined);
+  //  create a hash map of the words (each word and corresponding count)
+  let map = {};
+  for (let word of combined) {
+    map[word] = map[word] + 1 || 1;
+  }
+  // return object
+  let res = {
+    unique: [],
+    duplicate: [],
+  };
+  // if word appears > 1, push into duplicate array. Else, push into unique array
+  for (let word in map) {
+    if (map[word] === 1) {
+      res.unique.push(word);
+    } else {
+      res.duplicate.push(word);
+    }
+  }
+  return res;
+};
+
+// 10. Prime Numbers Array
+// Given k numbers which are less than n, return the set of prime number among them
+// Note: The task is to write a program to print all Prime numbers in an Interval.
+// assert solution(35) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+
+// THIS DOESNT WORK FOR LARGE NUMBERS BECAUSE IT DOESNT TEST IF NUMBER IS DIVISIBLE BY PRIME > 10
+const primes = N => {
+  let primes = [2];
+  for (let k = 3; k < N; k += 2) {
+    let prime = true;
+    for (let j = 3; j < 10 && k > 8; j++) {
+      if (k % j === 0 && !primes.includes(k)) {
+        prime = false;
+      }
+    }
+    if (prime) {
+      primes.push(k);
+    }
+  }
+  return primes;
 };
