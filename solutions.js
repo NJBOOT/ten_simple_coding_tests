@@ -361,23 +361,28 @@ const countPrimes = N => {
 // THIS TOOK A MINUTE TO FIGURE OUT, I GOOGLED A BIT...TIME LIMIT EXCEEDED ON LEETCODE
 const primesArr = N => {
   //   helper to figure out if each number k is prime. if num is [1,]
-  const isPrime = num => {
-    if (num < 2) return false;
-    for (let i = 2; i < num; i++) {
-      if (num % i === 0) return false;
+  const countPrimes = N => {
+    //   helper to figure out if each number k is prime. if num is [1,]
+    const isPrime = num => {
+      if (num < 2) return false;
+      // OPTIMIZE HELPER USING MATH.SQRT(num) instead of num!!!!
+      // once you hit Math.sqrt(num), that's a factor of num other than 1 or num.
+      for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+      }
+      return true;
+    };
+    //   prime array. If N=3, return [2]
+    const primes = N < 3 ? [] : [2];
+    //  loop for k through N-1 numbers.
+    for (let i = 1; i < N; i += 2) {
+      // check if prime using helper. if prime, push to prime array
+      if (isPrime(i)) {
+        primes.push(i);
+      }
     }
-    return true;
+    return primes.length;
   };
-  //   prime array. If N=3, return [2]
-  const primes = N < 3 ? [] : [2];
-  //  loop for k through N-1 numbers.
-  for (let i = 1; i < N; i += 2) {
-    // check if prime using helper. if prime, push to prime array
-    if (isPrime(i)) {
-      primes.push(i);
-    }
-  }
-  return primes;
 };
 
-// LOOKED UP "SIEVE PRIME NUMBERS" ALGO
+// LOOKED UP SIEVES PRIME NUMBER ALGO
