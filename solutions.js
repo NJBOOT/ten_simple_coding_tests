@@ -1,4 +1,4 @@
-// Reverse integer
+// 1- Reverse integer
 // Given an integer, return the integer with reversed digits.
 // Note: The integer could be either positive or negative.
 
@@ -12,7 +12,7 @@ const reverse = n => {
   }
 };
 
-// Average Sentence Length
+// 2 - Average Sentence Length
 // For a given sentence, return the average word length.
 // Note: Remember to remove punctuation first.
 
@@ -51,7 +51,7 @@ const avgWordLength = sentence => {
 //   return +(arr.char / arr.length).toFixed(2);
 // };
 
-// Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
+// 3 - Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
 // You must not use any built-in BigInteger library or convert the inputs to integer directly.
 
 methodlessSum = (num1, num2) => {
@@ -70,7 +70,7 @@ methodlessSum = (num1, num2) => {
   return wholeArr.reduce((sum, el) => (sum += el), 0);
 };
 
-// First unique character
+// 4 - First unique character
 // Given a string, find the first non-repeating character in it and return its index.
 // If it doesn't exist, return -1.
 
@@ -88,7 +88,7 @@ const unique = str => {
   return -1;
 };
 
-// Valid Palindrome
+// 5 - Valid Palindrome
 // Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
 // The string will only contain lowercase characters a-z.
 
@@ -319,7 +319,7 @@ const matchedWords = (one, two) => {
 // Note: The task is to write a program to print all Prime numbers in an Interval.
 // assert solution(35) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 
-// THIS DOESNT WORK FOR LARGE NUMBERS BECAUSE IT DOESNT TEST IF NUMBER IS DIVISIBLE BY PRIME > 10
+// THIS DOESNT WORK FOR LARGE NUMBERS BECAUSE IT DOESNT TEST IF NUMBER IS DIVISIBLE BY PRIME NUMBER > 10
 const primes = N => {
   let primes = [2];
   for (let k = 3; k < N; k += 2) {
@@ -335,9 +335,31 @@ const primes = N => {
   }
   return primes;
 };
+// THIS TIMES OUT ON LEETCODE
+const countPrimes = N => {
+  if (N < 3) return 0;
+  let primes = [2];
+  for (let k = 3; k < N; k += 2) {
+    let prime = true;
+    for (let h = 0; h < primes.length; h++) {
+      if (k % primes[h] === 0) {
+        prime = false;
+      }
+    }
+    for (let j = 3; j < 10 && k > 8; j++) {
+      if (k % j === 0 && !primes.includes(k)) {
+        prime = false;
+      }
+    }
+    if (prime) {
+      primes.push(k);
+    }
+  }
+  return primes;
+};
 
 // THIS TOOK A MINUTE TO FIGURE OUT, I GOOGLED A BIT...TIME LIMIT EXCEEDED ON LEETCODE
-const countPrimes = N => {
+const primesArr = N => {
   //   helper to figure out if each number k is prime. if num is [1,]
   const isPrime = num => {
     if (num < 2) return false;
@@ -357,3 +379,5 @@ const countPrimes = N => {
   }
   return primes;
 };
+
+// LOOKED UP "SIEVE PRIME NUMBERS" ALGO
