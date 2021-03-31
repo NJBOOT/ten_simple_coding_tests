@@ -12,6 +12,12 @@ const reverse = n => {
   }
 };
 
+// ES6 ternary expressions version of the above
+const reverse = n => {
+  const helper = n => n.toString().split("").reverse().join("");
+  return Math.sign(n) === 1 ? +helper(n) : helper(n * -1) * -1;
+};
+
 // 2 - Average Sentence Length
 // For a given sentence, return the average word length.
 // Note: Remember to remove punctuation first.
@@ -110,7 +116,7 @@ const palindrome = s => {
         s = s.slice(1);
         rev = rev.slice(0, rev.length - 1);
       } else {
-        s = s.slice(0, s.length - 1 - i) + s.slice(s.length - 1 - i + 1);
+        s = s.slice(0, s.length - 1 - i) + s.slice(s.length - i);
         rev = rev.slice(0, i) + rev.slice(i + 1);
       }
       delCount++;
@@ -383,6 +389,33 @@ const primesArr = N => {
     }
     return primes.length;
   };
+};
+
+// 10. Prime Numbers Array
+// Given k numbers which are less than n, return the set of prime number among them
+// Note: The task is to write a program to print all Prime numbers in an Interval.
+// assert solution(35) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+
+const primesArr = N => {
+  //   helper to figure out if each number k is prime. if num is [1,]
+  const isPrime = num => {
+    if (num < 2) return false;
+    // OPTIMIZE HELPER USING MATH.SQRT(num) instead of num
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+      if (num % i === 0) return false;
+    }
+    return true;
+  };
+  //   prime array. If N=3, return [2]
+  const primes = N < 3 ? [] : [2];
+  //  loop for k through N-1 numbers.
+  for (let i = 1; i < N; i += 2) {
+    // check if prime using helper. if prime, push to prime array
+    if (isPrime(i)) {
+      primes.push(i);
+    }
+  }
+  return primes;
 };
 
 // LOOKED UP SIEVES PRIME NUMBER ALGO
