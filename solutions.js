@@ -23,15 +23,18 @@ const reverse = n => {
 // Note: Remember to remove punctuation first.
 
 const avgWordLength = sentence => {
-  // edge case
-  if (sentence.includes("...")) {
-    sentence = sentence.replace("...", " ");
-  }
-  // had to lookup regex for stripping
-  const stripped = sentence.replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ");
+  // first, weird edge case where the punctuation represents a space
+  // then strip the rest of the punctuation using regex
+  const stripped = sentence
+    .replace("...", " ")
+    .replace(/[^\w\s]|_/g, "")
+    .replace(/\s+/g, " ");
 
-  let arr = stripped.split(" ");
-  let charCount = arr.reduce((acc, word) => (acc += word.length), 0);
+  // we only care about the length of the each word at this point.
+  let arr = stripped.split(" ").map(word => word.length);
+  // add up the lengths
+  let charCount = arr.reduce((acc, el) => (acc += el), 0);
+  // return the average length, remember to fix to decimals and change back to int
   return +(charCount / arr.length).toFixed(2);
 };
 
@@ -60,21 +63,67 @@ const avgWordLength = sentence => {
 // 3 - Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
 // You must not use any built-in BigInteger library or convert the inputs to integer directly.
 
-methodlessSum = (num1, num2) => {
-  const sumHelper = n => {
-    let numArr = n.split("");
-    let decimalPlace = 1;
-    let newArr = [];
-    for (let i = numArr.length - 1; i >= 0; i--) {
-      newArr.push(numArr[i] * decimalPlace);
-      decimalPlace *= 10;
-    }
-    return newArr;
+// I don't really get what this means, so I'm going to simulate "long additon"
+
+const methodlessSum = (num1, num2) => {
+  // simple helper function to transform "482" to [ 4, 8, 2 ]
+  const fakeNumber = num => {
+    const numberArr = num.split("").map(el => +el);
+    return numberArr;
   };
 
-  let wholeArr = [...sumHelper(num1), ...sumHelper(num2)];
-  return wholeArr.reduce((sum, el) => (sum += el), 0);
+  const firstNum = fakeNumber(num1);
+  const secondNum = fakeNumber(num2);
+
+  // set up variables
+  let longer = firstNum,
+    shorter = secondNum,
+    diff,
+    res = [];
+  // if length of numbers vary, we need to adjust the arrays for addition
+  if (firstNum.length !== secondNum.length) {
+    longer = firstNum.length > secondNum.length ? firstNum : secondNum;
+    shorter = firstNum.length > secondNum.length ? secondNum : firstNum;
+    diff = longer.length - shorter.length;
+    //   add leading zeroes to shorter number
+    for (i = 0; i < diff; i++) {
+      shorter.unshift(0);
+    }
+  }
+  //   loop through the longer one
+  for (let i = longer.length - 1; i >= 0; i--) {
+    let sum = shorter[i] + longer[i];
+    // if sum < 10, just add it to the result
+    if (sum < 10) {
+      res.push(sum);
+    } else {
+      // if it's greater than ten, we need to "carry" the first digit
+      sum = sum.toString().split("");
+      //add the second digit of the sum to the result
+      res.push(+sum[1]);
+      //   carry the first digit to prev column and add it.
+      longer[i - 1] += +sum[0];
+    }
+  }
+  //   the result array is backward now. We need to flip it for the correct total
+  return res.reverse().join("");
 };
+
+// methodlessSum = (num1, num2) => {
+//   const sumHelper = n => {
+//     let numArr = n.split("");
+//     let decimalPlace = 1;
+//     let newArr = [];
+//     for (let i = numArr.length - 1; i >= 0; i--) {
+//       newArr.push(numArr[i] * decimalPlace);
+//       decimalPlace *= 10;
+//     }
+//     return newArr;
+//   };
+
+//   let wholeArr = [...sumHelper(num1), ...sumHelper(num2)];
+//   return wholeArr.reduce((sum, el) => (sum += el), 0);
+// };
 
 // 4 - First unique character
 // Given a string, find the first non-repeating character in it and return its index.
